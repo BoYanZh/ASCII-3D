@@ -16,7 +16,7 @@ impl Shape {
             height,
             width,
             viewer_depth,
-            light_source: [1.0, 0.0, 1.0],
+            light_source: [0.0, 0.0, 0.0],
             x_rotation: 0.0,
             y_rotation: 0.0,
             z_rotation: 0.0,
@@ -34,6 +34,15 @@ impl Shape {
         self.offset_height += height;
         self.offset_width += width;
         self.offset_depth += depth;
+    }
+    pub fn shift_light_source(&mut self, x: f32, y: f32, z: f32) {
+        let tmp = [
+            self.light_source[0] + x,
+            self.light_source[1] + y,
+            self.light_source[2] + z,
+        ];
+        let modulus = (tmp[0] * tmp[0] + tmp[1] * tmp[1] + tmp[2] * tmp[2]).sqrt();
+        self.light_source = [tmp[0] / modulus, tmp[1] / modulus, tmp[2] / modulus];
     }
 
     pub fn generate_lumi(&self, points: impl Iterator<Item = [f32; 6]>) -> Vec<Vec<f32>> {

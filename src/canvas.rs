@@ -21,7 +21,7 @@ impl Canvas {
                 if lumi == -f32::MAX {
                     print!(" ");
                 } else {
-                    print!("{}", LUMINANCE_CHARS[(lumi.max(0.0) * 7.9) as usize]);
+                    print!("{}", LUMINANCE_CHARS[(lumi.max(0.0) * 11.0) as usize]);
                 }
                 print!(" ");
             }

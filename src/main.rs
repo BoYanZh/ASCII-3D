@@ -1,6 +1,6 @@
 use crate::{
     canvas::Canvas,
-    shapes::{shape::Shape, torus::TorusPoints},
+    shapes::{shape::Shape, sphere::SpherePoints, torus::TorusPoints},
 };
 use std::time::{Duration, Instant};
 
@@ -16,6 +16,7 @@ fn main() {
     canvas.create();
     let mut shape = Shape::new(height, width, -10.0);
     shape.shift((height / 2) as f32, (width / 2) as f32, 10.0);
+    shape.shift_light_source(1.0, 0.0, 1.0);
     let start_time = Instant::now();
     while start_time.elapsed().as_millis() < (duration * 1000.0) as u128 {
         shape.rotate(
@@ -23,7 +24,11 @@ fn main() {
             0.0,
             std::f32::consts::PI / 2.0 / (fps as f32),
         );
-        let buf = &shape.generate_lumi(TorusPoints::new(5.0, 10.0, &shape));
+        shape.shift_light_source(0.03, 0.0, -0.03);
+        #[allow(unused_variables)]
+        let points = TorusPoints::new(5.0, 10.0, &shape);
+        let points = SpherePoints::new(15.0, &shape);
+        let buf = &shape.generate_lumi(points);
         canvas.draw(&buf);
         std::thread::sleep(Duration::from_millis(1000 / fps));
     }
