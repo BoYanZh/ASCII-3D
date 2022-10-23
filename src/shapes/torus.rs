@@ -7,8 +7,6 @@ pub struct TorusPoints {
     small_r: f32,
     big_r: f32,
     x_rotation: f32,
-    #[allow(dead_code)]
-    y_rotation: f32,
     z_rotation: f32,
 }
 
@@ -18,7 +16,6 @@ impl TorusPoints {
             small_r,
             big_r,
             x_rotation: shape.x_rotation,
-            y_rotation: shape.y_rotation,
             z_rotation: shape.z_rotation,
             psi: 0.0,
             theta: 0.0,
